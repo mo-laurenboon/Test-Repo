@@ -1,0 +1,59 @@
+name: 'create pull request from issue form'
+on: 
+  issues:
+    types: [opened]
+  workflow_dispatch:
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'grid-format')
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+        
+      - name: update and push branch
+        id: push
+        run: |
+          branch="grid-database/update-$(date +%s)"
+          git checkout -b "$branch"
+          echo "Pushing branch: $branch"
+          git push origin "$branch"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+      
+      - name: parse issue body to file
+        run: echo "${{ github.event.issue.body }}" >> issue-body.txt 
+        
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+        
+      - name: convert file
+        id: convert
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/convert_grid_json.py issue-body.txt
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add *.json
+          git commit -m "New grid format added to database from issue #${{ github.event.issue.number }}"
+          git push --set-upstream origin ${{ steps.push.outputs.branch }}
+
+      - name: Open pull request
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: | 
+          gh pr create \
+            --title "New grid format added from issue form" \
+            --body "New grid format addition pull request initiated:
+                    -----------------------------------------------------
+                    User: ${{ github.actor }} 
+                    Issue ID: ${{ github.event.issue.number }}
+                    Branch: ${{ steps.push.outputs.branch }}
+                    Filename: ${{ steps.convert.outputs.json_file }}
+                    Warnings: ${{ steps.convert.outputs.warnings }}"  \
+            --base main \
+            --head $(git rev-parse --abbrev-ref HEAD)

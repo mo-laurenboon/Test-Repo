@@ -1,0 +1,31 @@
+name: daily air quality summary
+on:
+  schedule:
+    - cron: '30 10 * * *' #run every day at 10:30am
+  workflow_dispatch:
+
+jobs:
+  create-daily-data-summary:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: install dependencies
+        run: |
+          pip install requests
+          pip install jinja2
+      - name: Create html table from data
+        env: 
+          WAQI_TOKEN: ${{ secrets.WAQI_TOKEN_TOKEN }}
+        run: |
+          python scripts/create-daily-air-quality-html.py
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add .
+          git commit -m "New daily air quality summary added"
+          git push 
