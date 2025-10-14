@@ -1,0 +1,31 @@
+name: Generate and Deploy
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  generate-and-deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 #full history
+      - name: Setup production branch
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+
+          if ! git show-ref --verify --quiet refs/heads/production; then 
+            git checkout --orphan production
+            git rm -rf
+
+            mkdir -p content
+            touch .nojekyll
+            echo "# Production Content" > contetn/README.md 
+
+            git add .nojekyll content/README.md
+            git commit -m "Initialise production branch"
+            git push -u origin production
+          fi
+          
