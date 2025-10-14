@@ -21,7 +21,7 @@ jobs:
           pip install jinja2
       - name: Create html table from data
         env: 
-          WAQI_TOKEN: ${{ secrets.WAQI_TOKEN_TOKEN }}
+          WAQI_TOKEN: ${{ secrets.WAQI_TOKEN }}
         run: |
           python scripts/create-daily-air-quality-html.py
           git config user.name "github-actions"
