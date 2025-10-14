@@ -22,6 +22,8 @@ jobs:
             git checkout --orphan production
             git rm -rf .
 
+            git pull origin production
+            
             mkdir -p content
             touch .nojekyll
             echo "# Production Content" > content/README.md 
