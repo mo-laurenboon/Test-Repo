@@ -22,7 +22,7 @@ jobs:
 
             mkdir -p content
             touch .nojekyll
-            echo "# Production Content" > contetn/README.md 
+            echo "# Production Content" > content/README.md 
 
             git add .nojekyll content/README.md
             git commit -m "Initialise production branch"
