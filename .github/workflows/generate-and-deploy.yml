@@ -18,7 +18,7 @@ jobs:
 
           if ! git show-ref --verify --quiet refs/heads/production; then 
             git checkout --orphan production
-            git rm -rf
+            git rm -rf .
 
             mkdir -p content
             touch .nojekyll
