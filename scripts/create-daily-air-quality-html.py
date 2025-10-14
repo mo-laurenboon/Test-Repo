@@ -149,6 +149,11 @@ def save_files(city_name, target_date, filtered_city_dictionary):
 
 
 def main():
+    """
+    Executes the main body of the script.
+        :returns: None
+        :raises None: None
+    """
     token =  get_access_token("WAQI_TOKEN")
     London = requests.get(f"https://api.waqi.info/feed/@5724/?token={token}") 
 
