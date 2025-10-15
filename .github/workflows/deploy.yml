@@ -1,6 +1,6 @@
 name : Deploy static content to Pages
 on :
-  workflow˙dispatch :
+  workflow_dispatch :
 permissions :
   contents : read
   pages : write
