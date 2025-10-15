@@ -34,5 +34,5 @@ jobs:
       - name: Update contents from main  
         uses: WCRP-CMIP/CMIPLD/actions/fetch_branch_path@main
         with:
-          branch: 'main'
-          path: 'content/'
+          branch: main
+          path: content/
