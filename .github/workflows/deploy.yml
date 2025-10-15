@@ -26,13 +26,6 @@ jobs:
       with :
         path : 'content'
         retention-days : 0
-    - name: check artifact status
-      id: check-artifact-status
-      run: |
-        if [-d "content"]; then
-          echo "Artifact identified" 
-        else:
-          echo "WARNING: No artifact identified: Skipping deployment"
     - name : Deploy to GitHub Pages
       id : deployment
       uses : actions/deploy-pages@v4
