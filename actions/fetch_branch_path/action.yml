@@ -1,0 +1,25 @@
+# NOT MY ACTION: SEE https://github.com/WCRP-CMIP/CMIPLD/blob/main/actions/fetch_branch_path/action.yml for the original
+name: fetch_branch_path
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: 'branch we want'
+        required: true
+        type: string
+      path:
+        description: 'path of the directory of file we want'
+        required: true
+        type: string
+runs:
+    using: 'composite'
+    
+
+    steps:
+          
+      - name: Set up Git
+        run: |
+          rm -rf ${{ inputs.path }} ;
+          git restore --source ${{ inputs.branch }} --staged --worktree ${{ inputs.path }} ;
+
+        shell: bash

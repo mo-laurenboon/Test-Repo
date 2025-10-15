@@ -32,7 +32,7 @@ jobs:
             git push -u origin production
           fi
       - name: Update contents from main  
-        uses: WCRP-CMIP/CMIPLD/actions/fetch_branch_path@main
+        uses: mo-laurenboon/Test-Repo/actions/fetch_branch_path@main
         with:
           branch: 'main'
           path: 'content/'
