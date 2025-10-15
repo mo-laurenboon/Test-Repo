@@ -1,7 +1,7 @@
 name: Generate and Deploy
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
@@ -15,8 +15,8 @@ jobs:
           fetch-depth: 0 #full history
       - name: Setup production branch
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
+          git config user.name 'github-actions'
+          git config user.email 'github-actions@users.noreply.github.com'
 
           if ! git show-ref --verify --quiet refs/heads/production; then 
             git checkout --orphan production
@@ -38,6 +38,6 @@ jobs:
                                          # you to swap branches?
         uses: WCRP-CMIP/CMIPLD/actions/fetch_branch_path@main
         with:
-          branch: "main"
-          path: "content/"
+          branch: 'main'
+          path: 'content/'
 
