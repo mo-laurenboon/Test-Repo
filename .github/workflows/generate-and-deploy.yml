@@ -31,8 +31,8 @@ jobs:
             git commit -m "Initialise production branch" || echo "No new changes to commit"
             git push -u origin production
           fi
-      - name: Update contents from main  
-        uses: mo-laurenboon/Test-Repo/actions/fetch_branch_path@main
-        with:
-          branch: 'main'
-          path: 'content/'
+  update-contents-from-main:
+    uses: mo-laurenboon/Test-Repo/actions/fetch_branch_path@main
+    with:
+      branch: 'main'
+      path: 'content/'
