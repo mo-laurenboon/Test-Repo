@@ -1,7 +1,7 @@
 name: Generate and Deploy
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
@@ -32,4 +32,12 @@ jobs:
             git commit -m "Initialise production branch" || echo "No new changes to commit"
             git push -u origin production
           fi
-          
+      # may need to be in different file -----------------------------------------------------------------------------------
+      - name: Update contents from main  # empties the '/contents' directory then reverts file to its state in the main 
+                                         # branch and reverts to the version from HEAD of '/contents' without requiring 
+                                         # you to swap branches?
+        uses: WCRP-CMIP/CMIPLD/actions/fetch_branch_path@main
+        with:
+          branch: "main"
+          path: "content/"
+
