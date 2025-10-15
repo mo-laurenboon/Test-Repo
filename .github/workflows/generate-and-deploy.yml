@@ -35,4 +35,4 @@ jobs:
         uses: WCRP-CMIP/CMIPLD/actions/fetch_branch_path/action.yml@main
         with:
           branch: 'main'
-          path: 'content/
+          path: 'content/'
