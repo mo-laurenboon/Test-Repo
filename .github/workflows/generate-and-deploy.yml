@@ -32,12 +32,9 @@ jobs:
             git commit -m "Initialise production branch" || echo "No new changes to commit"
             git push -u origin production
           fi
-      # may need to be in different file -----------------------------------------------------------------------------------
-      - name: Update contents from main  # empties the '/contents' directory then reverts file to its state in the main 
-                                         # branch and reverts to the version from HEAD of '/contents' without requiring 
-                                         # you to swap branches?
-        uses: WCRP-CMIP/CMIPLD/actions/fetch_branch_path@main
+
+      - name: Update contents from main  
+        uses: WCRP-CMIP/CMIPLD/actions/fetch_branch_path/action.yml@main
         with:
           branch: 'main'
-          path: 'content/'
-
+          path: 'content/
