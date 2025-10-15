@@ -32,7 +32,7 @@ jobs:
             git push -u origin production
           fi
       - name: update production from main
-        uses: ./.github/actions/fetch_branch_path@main
+        uses: mo-laurenboon/Test-Repo/.github/actions/fetch_branch_path@main
         with:
           branch: 'main'
           path: 'content/'
