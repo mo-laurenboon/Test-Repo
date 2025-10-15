@@ -24,12 +24,12 @@ jobs:
     - name : Upload artifact
       uses : actions/upload-pages-artifact@v3
       with :
-        path : 'src-data'
+        path : 'content'
         retention-days : 0
     - name: check artifact status
       id: check-artifact-status
       run: |
-        if [-d "src-data"]; then
+        if [-d "content"]; then
           echo "Artifact identified" 
         else:
           echo "WARNING: No artifact identified: Skipping deployment"
