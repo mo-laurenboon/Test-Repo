@@ -32,7 +32,7 @@ jobs:
             git push -u origin production
           fi
   update-contents-from-main:
-    uses: mo-laurenboon/Test-Repo/.github/workflows/fetch_branch_path/action.yml@main
+    uses: mo-laurenboon/Test-Repo/.github/workflows/fetch_branch_path.yml@main
     with:
       branch: 'main'
       path: 'content/'
