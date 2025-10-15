@@ -33,6 +33,6 @@ jobs:
           fi
       - name: update production from main
         uses: mo-laurenboon/Test-Repo/.github/actions/fetch_branch_path@main
-       # with:
-        #  branch: 'main'
-        #  path: 'content/'
+        with:
+          branch: 'main'
+          path: 'content/'
