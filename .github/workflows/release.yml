@@ -1,8 +1,12 @@
 name: Auto Release on Production Update
 on:
-  push:
-    branches:
-    - production
+  workflow_run:
+    workflows: ["Deploy static content to Pages"]
+    types:
+      - completed
+ # push:
+#    branches:
+ #   - production
   workflow_dispatch:
 permissions:
   contents: write 
