@@ -1,10 +1,14 @@
 name : Deploy static content to Pages
 on :
-  push:
-    branches:
-      - 'production'
-    paths:
-      - 'content/**'
+  workflow_run:
+    workflows: ["Generate and Deploy"]
+    types:
+      - completed
+ # push:
+ #   branches:
+ #     - 'production'
+ #   paths:
+ #     - 'content/**'
   workflow_dispatch :
 permissions :
   contents : read
