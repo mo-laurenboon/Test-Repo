@@ -31,8 +31,14 @@ jobs:
             git commit -m "Initialise production branch" || echo "No new changes to commit"
             git push -u origin production
           fi
-      - name: update production from main
+      - name: Incorporate reusable action
         uses: mo-laurenboon/Test-Repo/.github/actions/fetch_branch_path@main
         with:
           branch: 'main'
           path: 'content/'
+      - name: Update production from main
+        run: |
+          git checkout production
+          git checkout main -- content/
+          git add content/*.html
+          git commit -m "HTML copied from main to production"
