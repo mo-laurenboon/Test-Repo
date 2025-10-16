@@ -4,9 +4,6 @@ on:
     workflows: ["Deploy static content to Pages"]
     types:
       - completed
- # push:
-#    branches:
- #   - production
   workflow_dispatch:
 permissions:
   contents: write 
