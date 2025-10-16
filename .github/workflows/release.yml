@@ -28,7 +28,7 @@ jobs:
         fi
 
         echo "New version : $NEW_VERSION"
-        echo "version = $NEW_VERSION" >> $GITHUB_OUTPUT
+        echo "VERSION = $NEW_VERSION" >> $GITHUB_OUTPUT
     - name: Generate release notes
       id: release_notes
       run: |
