@@ -1,6 +1,8 @@
 name: Generate and Deploy
 on:
   push:
+    branches: 
+      - 'main'
     paths:
       - 'content/**'
   #schedule:
