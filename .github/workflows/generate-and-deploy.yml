@@ -35,4 +35,4 @@ jobs:
         uses: mo-laurenboon/Test-Repo/.github/actions/fetch_branch_path@main
         with:
           branch: 'main'
-          path: 'content/'
+          path: 'Test-Repo/content/'
