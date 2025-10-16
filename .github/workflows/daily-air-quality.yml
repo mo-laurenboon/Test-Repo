@@ -1,7 +1,7 @@
 name: daily air quality summary
 on:
   schedule:
-    - cron: '0 0 * * *' #run every day at 10:30am
+    - cron: '0 0 * * *' 
   workflow_dispatch:
 
 jobs:
