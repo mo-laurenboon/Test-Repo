@@ -134,7 +134,7 @@ def save_files(city_name, target_date, filtered_city_dictionary):
         :raises None: None
     """
     html = render_html_template(city_name, filtered_city_dictionary)
-    html_filepath, json_filepath = create_directory_and_filenames("air_quality_data", city_name, target_date)
+    html_filepath, json_filepath = create_directory_and_filenames("content", city_name, target_date)
 
     if html_filepath.exists() and json_filepath.exists():
         print(f"summary files for {target_date} already exists... skipping save")
