@@ -61,7 +61,7 @@ jobs:
       env:
         GH_TOKEN : ${{ secrets.GITHUB_TOKEN }}
       run: |
-        VERSION ="${{ steps.get_version.outputs.version }}"
+        VERSION="${{ steps.get_version.outputs.version }}"
         cd content
         zip -r ../air-quality-data-${VERSION}.zip .
         cd ..
