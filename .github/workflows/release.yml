@@ -20,7 +20,7 @@ jobs:
         LATEST_TAG=$(git tag -l ”v*” | sort -V | tail -n 1)
 
         if [ -z ”$LATEST˙TAG” ]; then
-          NEW_VERSION=”v1”
+          NEW_VERSION=”v$(date +'%Y.%m.%d')”
           echo ”First release”
         else
           NUMBER=${LATEST_TAG#v}
