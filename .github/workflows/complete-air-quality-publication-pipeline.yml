@@ -8,8 +8,7 @@ jobs:
   publish-air-quality-data:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      contents : read
+      contents: write, read
       pages : write
       id-token : write
     steps:
