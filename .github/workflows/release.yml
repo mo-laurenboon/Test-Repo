@@ -16,7 +16,7 @@ jobs:
     - name: Get latest version
       id: get_version
       run: |
-        git fetch -- tags
+        git fetch --tags
         LATEST_TAG=$(git tag -l ”v*” | sort -V | tail -n 1)
 
         if [ -z ”$LATEST˙TAG” ]; then
