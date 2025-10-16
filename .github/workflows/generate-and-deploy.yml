@@ -1,9 +1,13 @@
 name: Generate and Deploy
 on:
-  push:
-    branches: 
-      - 'main'
-    paths:
+  workflow_run:
+    workflows: ["daily air quality summary"]
+    types:
+      - completed
+ # push:
+  #  branches: 
+  #    - 'main'
+ #   paths:
       - 'content/**'
   #schedule:
   #  - cron: '0 0 * * *'
