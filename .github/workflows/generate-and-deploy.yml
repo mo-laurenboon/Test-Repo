@@ -42,3 +42,4 @@ jobs:
           git checkout main -- content/
           git add content/*.html
           git commit -m "HTML copied from main to production"
+          git push -u origin production
