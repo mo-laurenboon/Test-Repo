@@ -58,7 +58,7 @@ def get_pollutant_data(raw_city_data, city, target_date, filtered_data):
     for pollutant in pollutants:
         forecast_dict = raw_city_data[city]["data"]["forecast"]["daily"].get(pollutant)
         match = [item for item in forecast_dict if item["day"] == target_date]
-        remove_dict_from_list = match[0]
+        remove_dict_from_list = match#[0]
         #for name, data in remove_dict_from_list.items():
         for data in remove_dict_from_list.items():
             if not data:
