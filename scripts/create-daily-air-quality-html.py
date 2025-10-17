@@ -170,7 +170,7 @@ def update_index_page(target_date, city_name):
     """
     yesterday = (date.today()-timedelta(days=1)).strftime("%Y-%m-%d")
     latest_link = f'<a href="{city_name}_{yesterday}.html">{yesterday}</a>'
-    new_link = f'   <a href="{city_name}_{target_date}.html">{target_date}</a>'
+    new_link = f'    <a href="{city_name}_{target_date}.html">{target_date}</a>' #indentation required DO NOT EDIT
 
     with open("content/index.html", "r") as f:
         lines = f.readlines()
