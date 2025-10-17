@@ -58,7 +58,6 @@ def get_pollutant_data(raw_city_data, city, target_date, filtered_data):
     for pollutant in pollutants:
         forecast_dict = raw_city_data[city]["data"]["forecast"]["daily"].get(pollutant)
         match = [item for item in forecast_dict if item["day"] == target_date]
-        print(match)
         remove_dict_from_list = match[0]
         for data in remove_dict_from_list.items():
             if not data:
@@ -169,7 +168,7 @@ def update_index_page(target_date, city_name):
         :returns: None
         :raises ValueError: Raised if a link for the previous days data webpage cannot be found
     """
-    yesterday = (date.today-timedelta(days=1)).strftime("%Y-%m-%d")
+    yesterday = (date.today()-timedelta(days=1)).strftime("%Y-%m-%d")
     latest_link = f'<a href="{city_name}_{yesterday}.html">{yesterday}</a>'
     new_link = f'<a href="{city_name}_{target_date}.html">{target_date}</a>'
 
