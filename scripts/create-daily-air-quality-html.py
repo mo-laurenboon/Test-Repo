@@ -1,6 +1,6 @@
 import os
 import requests
-from datetime import datetime, timedelta
+from datetime import date, timedelta
 import json
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
@@ -199,7 +199,7 @@ def main():
     cities = [London]
     raw_city_data = {}
     filtered_city_dictionary = {}
-    target_date = datetime.now().strftime("%Y-%m-%d")
+    target_date = date.today()
 
     for city in cities:
         raw_city_data[city] = city.json()
