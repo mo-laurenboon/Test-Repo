@@ -1,6 +1,6 @@
 import os
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
@@ -101,10 +101,23 @@ def render_html_template(city_name, filtered_city_dictionary):
     return html
 
 
-def create_directory_and_filenames(directory_name, city_name, target_date):
+def create_filenames(city_name, target_date):
     """
-    Creates the save directory for files and generates filenames for the populated html and json dictionary file using 
-    the location and target date.
+    Creates the filename for each file.
+
+        :param city_name: The name of the city.
+        :param target_date: The date associated with the data taken from the database (set to take the current date).
+        :returns: The filename of the new html and json files.
+        :raises None: None
+    """
+    html_filename = Path(f"{city_name}_{target_date}.html")
+    json_filename = Path(f"{city_name}_{target_date}.json")
+    return html_filename, json_filename
+
+
+def create_filepaths(directory_name, city_name, target_date):
+    """
+    Creates the save directory filepath for each file.
 
         :param directory_name: The desired name for the directory into which the files will be saved.
         :param city_name: The name of the city.
@@ -115,8 +128,7 @@ def create_directory_and_filenames(directory_name, city_name, target_date):
     directory = Path(__file__).resolve().parent.parent/directory_name
     directory.mkdir(exist_ok =True)
 
-    html_filename = Path(f"{city_name}_{target_date}.html")
-    json_filename = Path(f"{city_name}_{target_date}.json")
+    html_filename, json_filename = create_filenames(city_name, target_date)
 
     html_filepath = directory / html_filename
     json_filepath = directory / json_filename
@@ -134,7 +146,7 @@ def save_files(city_name, target_date, filtered_city_dictionary):
         :raises None: None
     """
     html = render_html_template(city_name, filtered_city_dictionary)
-    html_filepath, json_filepath = create_directory_and_filenames("content", city_name, target_date)
+    html_filepath, json_filepath = create_filepaths("content", city_name, target_date)
 
     if html_filepath.exists() and json_filepath.exists():
         print(f"summary files for {target_date} already exists... skipping save")
@@ -146,6 +158,33 @@ def save_files(city_name, target_date, filtered_city_dictionary):
         with open(json_filepath, "w", encoding="utf-8") as f:
             json.dump(filtered_city_dictionary, f, indent=4)
         print(f"Dictionary saved as {json_filepath}...")
+
+
+def update_index_page(target_date, city_name):
+    """
+    Updates index.html with a link for the new data webpage.
+
+        :param target_date: The date associated with the data taken from the database (set to take the current date).
+        :param city_name: The name of the city.
+        :returns: None
+        :raises ValueError: Raised if a link for the previous days data webpage cannot be found
+    """
+    yesterday = target_date-timedelta(days=1)
+    latest_link = f'<a href="{city_name}_{yesterday}.html">{yesterday}</a>'
+    new_link = f'<a href="{city_name}_{target_date}.html">{target_date}</a>'
+
+    with open("content/index.html", "r") as f:
+        lines = f.readlines()
+
+    for i, line in enumerate(lines):
+        if latest_link in line:
+            lines.insert(i+1, new_link + "\n")
+            break
+    else:
+        raise ValueError(f"Unable to find link for yesterdays data: {latest_link}")
+
+    with open("content/index.html", "w", encoding="utf-8") as f:
+        f.writelines(lines)
 
 
 def main():
@@ -166,7 +205,8 @@ def main():
         raw_city_data[city] = city.json()
         city_name, filtered_data = filter_air_quality_data(raw_city_data, city)
         filtered_city_dictionary[city_name] = get_pollutant_data(raw_city_data, city, target_date, filtered_data)
-    save_files(city_name, target_date, filtered_city_dictionary)
+        save_files(city_name, target_date, filtered_city_dictionary)
+        update_index_page(target_date, city_name)
 
 
 if __name__ == "__main__":
