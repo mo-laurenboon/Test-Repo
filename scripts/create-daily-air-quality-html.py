@@ -200,7 +200,7 @@ def main():
     cities = [London]
     raw_city_data = {}
     filtered_city_dictionary = {}
-    target_date = date.today()
+    target_date = date.today().strftime("%Y-%m-%d")
 
     for city in cities:
         raw_city_data[city] = city.json()
