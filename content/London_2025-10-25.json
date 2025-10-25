@@ -1,0 +1,30 @@
+{
+    "London": {
+        "Status": "ok",
+        "AQI": 30,
+        "Dominant pollutant": "pm25",
+        "Temperature": {
+            "v": 9.4
+        },
+        "Wind Speed": {
+            "v": 4.5
+        },
+        "forecast": {
+            "o3": {
+                "avg": 10,
+                "max": 16,
+                "min": 6
+            },
+            "pm10": {
+                "avg": 4,
+                "max": 8,
+                "min": 2
+            },
+            "pm25": {
+                "avg": 7,
+                "max": 13,
+                "min": 3
+            }
+        }
+    }
+}
